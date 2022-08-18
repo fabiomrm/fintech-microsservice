@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("cards")
@@ -29,5 +30,11 @@ public class CardController {
         Card card = cardSaveDto.toModel();
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping(params = "income")
+    public ResponseEntity<List<Card>> getCardsByIncome(@RequestParam("income") Long income) {
+        List<Card> cardsBasedOnIncome = service.getCardsBasedOnIncome(income);
+        return ResponseEntity.ok().body(cardsBasedOnIncome);
     }
 }
