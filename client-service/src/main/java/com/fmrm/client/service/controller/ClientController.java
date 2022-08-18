@@ -4,8 +4,8 @@ package com.fmrm.client.service.controller;
 import com.fmrm.client.service.domain.Client;
 import com.fmrm.client.service.dto.ClientSaveDTO;
 import com.fmrm.client.service.service.ClientService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("clients")
+@Slf4j
 public class ClientController {
 
     private final ClientService service;
@@ -23,6 +24,7 @@ public class ClientController {
     }
     @GetMapping
     public String status() {
+        log.info("Inside status - clients service");
         return "ok";
     }
 
