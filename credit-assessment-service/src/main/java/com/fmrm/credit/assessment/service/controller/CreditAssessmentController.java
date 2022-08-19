@@ -26,5 +26,6 @@ public class CreditAssessmentController {
     @GetMapping(value="client-status", params="cpf")
     public ResponseEntity<ClientStatus> getClientStatus(@RequestParam("cpf") String cpf) {
         ClientStatus status = service.getStatus(cpf);
+        return ResponseEntity.ok().body(status);
     }
 }
