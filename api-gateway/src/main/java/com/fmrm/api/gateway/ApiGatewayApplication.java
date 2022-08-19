@@ -22,8 +22,8 @@ public class ApiGatewayApplication {
 		return builder
 				.routes()
 				.route(r -> r.path("/clients/**").uri("lb://client-service"))
-				.route(r -> r.path("/cards/**").uri("lb://card-service"))
-				.route(r -> r.path("/cards/**").uri("lb://card-service"))
+			.route(r -> r.path("/cards/**").uri("lb://card-service"))
+				.route(r -> r.path("/credit-assessment/**").uri("lb://credit-assessment-service"))
 				.build();
 
 	}
