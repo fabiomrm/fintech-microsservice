@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,6 +23,7 @@ public class Card {
     private CardFlag cardFlag;
     private BigDecimal income;
     private BigDecimal baseLimit;
+    
 
     public Card(String name, CardFlag cardFlag, BigDecimal income, BigDecimal baseLimit) {
         this.name = name;

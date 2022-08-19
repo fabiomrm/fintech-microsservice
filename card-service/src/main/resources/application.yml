@@ -3,7 +3,6 @@ spring:
     name: card-service
 server:
   port: 0
-
 eureka:
   client:
     service-url:
