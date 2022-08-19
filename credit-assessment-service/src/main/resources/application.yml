@@ -1,6 +1,6 @@
 spring:
   application:
-    name: card-service
+    name: credit-assessment-service
 server:
   port: 0
 eureka:

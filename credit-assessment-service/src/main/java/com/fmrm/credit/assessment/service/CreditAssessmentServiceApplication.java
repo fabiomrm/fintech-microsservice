@@ -1,4 +1,4 @@
-package com.fmrm.card.service;
+package com.fmrm.credit.assessment.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class CardServiceApplication {
+public class CreditAssessmentServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CardServiceApplication.class, args);
+		SpringApplication.run(CreditAssessmentServiceApplication.class, args);
 	}
 
 }
