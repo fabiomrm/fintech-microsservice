@@ -2,8 +2,10 @@ package com.fmrm.credit.assessment.service.service;
 
 import com.fmrm.credit.assessment.service.exception.ClientDataNotFoundException;
 import com.fmrm.credit.assessment.service.exception.MicroserviceCommunicationException;
+import com.fmrm.credit.assessment.service.exception.RequestCardSolicitationException;
 import com.fmrm.credit.assessment.service.infra.clients.CardResourceClient;
 import com.fmrm.credit.assessment.service.infra.clients.ClientResourceClient;
+import com.fmrm.credit.assessment.service.infra.clients.mqueue.CardsEmissionSolicitationPublisher;
 import com.fmrm.credit.assessment.service.model.*;
 import feign.FeignException;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,9 +24,13 @@ public class CreditAssessmentService {
     private final ClientResourceClient clientsClient;
     private final CardResourceClient cardsClient;
 
-    public CreditAssessmentService(ClientResourceClient clientsClient ,CardResourceClient cardsClient) {
+    private final CardsEmissionSolicitationPublisher cardsEmissionSolicitationPublisher;
+
+    public CreditAssessmentService(ClientResourceClient clientsClient ,CardResourceClient cardsClient,
+                                   CardsEmissionSolicitationPublisher cardsEmissionSolicitationPublisher) {
         this.clientsClient = clientsClient;
         this.cardsClient = cardsClient;
+        this.cardsEmissionSolicitationPublisher = cardsEmissionSolicitationPublisher;
     }
 
     public  ClientStatus getStatus(String cpf)
@@ -77,6 +84,15 @@ public class CreditAssessmentService {
             }
             throw new MicroserviceCommunicationException(e.getMessage(), status);
         }
+    }
 
+    public RequestedCardProtocol requestCardEmission(RequestCardRequestEmissionData requestCardRequestEmissionData) {
+        try {
+            cardsEmissionSolicitationPublisher.requestCard(requestCardRequestEmissionData);
+            var protocol = UUID.randomUUID().toString();
+            return new RequestedCardProtocol(protocol);
+        }catch(Exception e) {
+            throw new RequestCardSolicitationException(e.getMessage());
+        }
     }
 }
