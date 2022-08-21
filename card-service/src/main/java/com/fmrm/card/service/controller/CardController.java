@@ -33,7 +33,7 @@ public class CardController {
     @PostMapping
     public ResponseEntity<Card> save(@RequestBody CardSaveDto cardSaveDto) {
         Card card = cardSaveDto.toModel();
-
+        card = service.save(card);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

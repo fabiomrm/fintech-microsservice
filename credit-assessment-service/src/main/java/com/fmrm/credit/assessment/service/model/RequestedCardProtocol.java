@@ -1,2 +1,13 @@
-package com.fmrm.credit.assessment.service.model;public class RequestedCardProtocol {
+package com.fmrm.credit.assessment.service.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class RequestedCardProtocol {
+
+    private String protocol;
 }
